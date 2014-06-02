@@ -1,0 +1,15 @@
+.carousel-wrapper{
+	display:none;
+	width: 80%;
+	margin: 20px auto;
+	padding: 10px;
+}
+.carousel-wrapper .slide{
+	display:none;
+}
+.carousel-wrapper .slide.active{
+	display:block;
+	padding: 10px 0;
+	background-color: #f0f0f0;
+	margin-bottom: 5px;
+}
