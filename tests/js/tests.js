@@ -27,4 +27,8 @@
         ok(slider1.current === 0, 'Slide element is decremented');
     });
 
+    test('Carousel AutoPlay', function() {
+        slider1.play();
+        ok(slider1.interval, 'Slide element is playing');
+    });
 })(jQuery);
