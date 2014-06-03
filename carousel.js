@@ -51,8 +51,14 @@ Carousel.prototype.prev = function () {
 };
 
 Carousel.prototype.selectSlide = function(target) {
+    // noop
     // add direct call to slide here.    
 };
+
+Carousel.prototype.addThumbnails = function(){
+    // add to init, add default container class to config, add to itit and build placeholder thumbnails dynamically   
+    // also add "event listener" for the selectSlide for each of the thumbnails so users can choose one if desired. 
+}
 
 Carousel.prototype.config = function (settings) {
     var settings = (typeof settings === 'object') ? settings : {},
