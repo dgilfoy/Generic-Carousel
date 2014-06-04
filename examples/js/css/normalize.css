@@ -3,6 +3,22 @@
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
+/**
+ *  Adding this to the normalize CSS, as it's typically a good idea for edgecases 
+ */
+
+*{
+    --moz-box-sizing: inherit;
+    box-sizing: inherit; 
+    overflow: inherit;  /* good idea for several reasons, clearfix replacement for one.*/
+}
+
+html{
+    /** padding and border no longer increase the width **/
+    --moz-box-sizing: border-box;
+    box-sizing: border-box; 
+    overflow: auto;  /* good idea for several reasons, clearfix replacement for one.*/    
+}
 
 /**
  * Correct `block` display not defined in IE 6/7/8/9 and Firefox 3.
