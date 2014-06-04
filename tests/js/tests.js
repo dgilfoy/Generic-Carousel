@@ -1,7 +1,8 @@
 
 (function($) {
     var opts = {
-        wrapperClass: 'carousel-wrapper'
+        wrapperClass: 'carousel-wrapper',
+        thumbnails: true, 
     },
     slider1 = new Carousel();
 	
@@ -30,5 +31,11 @@
     test('Carousel AutoPlay', function() {
         slider1.play();
         ok(slider1.interval, 'Slide element is playing');
+    });
+
+    test('Carousel AutoPlay Off', function() {
+        slider1.stopPlay(slider1);
+        console.log(slider1.interval);
+        ok( typeof slider1.interval === 'undefined', 'Slide element is stopped');
     });
 })(jQuery);
