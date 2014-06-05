@@ -8,18 +8,7 @@ var Carousel = function (settings) {
 Carousel.prototype.init = function (settings) {
     this.config(settings);  // set the defaults.
 
-    var parentContainer = '.' + this.config.wrapperClass,
-      doc = document;
-    // @todo: abstract this out somehow so you can load the slides via an external call and build the slides dynamically.
-    this.current = 0,
-      this.container = doc.querySelector(parentContainer),
-      this.slides = doc.querySelectorAll(parentContainer + ' .' + this.config.frameClass),
-      this.total = this.slides.length,
-      this.prevbtn = doc.querySelector(parentContainer + ' .ctrlbutton .prev'),
-      this.nextbtn = doc.querySelector(parentContainer + ' .ctrlbutton .next');
-    
-    this.container.style.display = "block";
-    this.slides[this.current].className = "slide active";
+    this.setSource();
 
     if( this.nextbtn && this.nextbtn.hasOwnProperty('onclick') ){
         this.nextbtn.onclick = this.next.bind(this);
@@ -37,11 +26,47 @@ Carousel.prototype.init = function (settings) {
     }
 };
 
-Carousel.prototype.play = function() {
+Carousel.prototype.setSource = function () {
+    var parentContainer = '.' + this.config.wrapperClass,
+      doc = document;
+    // @todo: abstract this out somehow so you can load the slides via an external call and build the slides dynamically.
+    
+    this.current = 0,
+      this.container = doc.querySelector(parentContainer);
+    if(this.config.sourceUrl) {
+        //@todo : add get call to call in json.  Mock it for now
+        this.buildSlides();
+    }
+    this.slides = doc.querySelectorAll(parentContainer + ' .' + this.config.frameClass);
+    this.container.style.display = "block";
+
+    this.selectSlide(this.current);
+
+    this.total = this.slides.length,
+      this.prevbtn = doc.querySelector(parentContainer + ' .ctrlbutton .prev'),
+      this.nextbtn = doc.querySelector(parentContainer + ' .ctrlbutton .next');
+};
+
+Carousel.prototype.buildSlides = function () {
+    var slides = [
+        {"content" : "TestBob"},
+        {"content" : "Testy McTester"}
+    ],
+      slideElements = slides.length,
+      index = 0;
+    for (index; index < slideElements; index++) {
+        var slideEle = document.createElement('div');
+        slideEle.className = this.config.frameClass;
+        slideEle.innerHTML = slides[index].content;
+        this.container.appendChild(slideEle);    
+    }
+};
+
+Carousel.prototype.play = function () {
     this.interval = window.setInterval( this.next.bind(this), this.config.delay);
 };
 
-Carousel.prototype.stopPlay = function(){
+Carousel.prototype.stopPlay = function () {
     clearInterval(this.interval);   
 };
 
@@ -63,13 +88,17 @@ Carousel.prototype.prev = function () {
     this.animate(current,target);
 };
 
-Carousel.prototype.selectSlide = function(target) {
+Carousel.prototype.selectSlide = function (target) {
+    var current = this.current;
+    this.current = target;
+    if( this.slides.length > 0 && this.slides[this.current].hasOwnProperty('className')){
         this.slides[this.current].className = this.config.frameClass;
-        this.current = target;
         this.slides[target].className = this.config.frameClass + ' active';
+    }
+    
 };
 
-Carousel.prototype.addThumbnails = function(){
+Carousel.prototype.addThumbnails = function () {
     // placeholder thumbnails dynamically 
     // @todo: possibly add some default images, and/or change thumbnail elements to something other than button
     var index = 0,
@@ -87,6 +116,7 @@ Carousel.prototype.addThumbnails = function(){
 Carousel.prototype.config = function (settings) {
     var settings = (typeof settings === 'object') ? settings : {},
        config = {
+        "sourceUrl"     : false,
         "wrapperClass"  : "slidesWrapper",
         "frameClass"    : "slide",
         "autoplay"      : false,
@@ -100,8 +130,8 @@ Carousel.prototype.config = function (settings) {
 
 Carousel.prototype.animate = function ( current, target ) {
     // add some animation here - but let's wait until we decide on a library or method (CSS animation?)
-    this.slides[current].className = "slide";
-    this.slides[target].className = "slide active";
+    this.slides[current].className = this.config.frameClass;
+    this.slides[target].className = this.config.frameClass + " active";
 };
 
 Carousel.prototype.merge = function (target,source) {

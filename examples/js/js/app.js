@@ -30,7 +30,11 @@
         delay       : 6000
     },
     slider1 = new Carousel(),
-    slider2 = new Carousel(opts2);
+    slider2 = new Carousel(opts2),
+    slider3 = new Carousel({
+        "wrapperClass"  : "carousel3-wrapper",
+        "sourceUrl"   : "external"  
+    });
     
     slider1.init(opts);
 
