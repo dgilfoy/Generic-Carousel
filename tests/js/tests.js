@@ -34,8 +34,7 @@
     });
 
     test('Carousel AutoPlay Off', function() {
-        slider1.stopPlay(slider1);
-        console.log(slider1.interval);
-        ok( typeof slider1.interval === 'undefined', 'Slide element is stopped');
+        slider1.stopPlay();
+        ok( !slider1.hasOwnProperty('interval'), 'Slide element is stopped');
     });
 })(jQuery);

@@ -1,13 +1,12 @@
 var Carousel = function (settings) {
     if (typeof settings === 'object') {
         // call the init function automatically if the settings are passed to constructor.
-        this.__proto__.init.call(this, settings);
+        this.init(settings);
     }
-    return this;
 };
 
 Carousel.prototype.init = function (settings) {
-    this.__proto__.config.call(this,settings);  // set the defaults.
+    this.config(settings);  // set the defaults.
 
     var parentContainer = '.' + this.config.wrapperClass,
       doc = document;
@@ -23,35 +22,45 @@ Carousel.prototype.init = function (settings) {
     this.slides[this.current].className = "slide active";
 
     if( this.nextbtn && this.nextbtn.hasOwnProperty('onclick') ){
-        this.nextbtn.onclick = this.__proto__.next.bind(this);
+        this.nextbtn.onclick = this.next.bind(this);
     }
     if( this.config.thumbnails ) {
-        this.__proto__.addThumbnails.call(this);
+        this.addThumbnails();
     }
 
     if( this.prevbtn && this.prevbtn.hasOwnProperty('onclick') ){
-        this.prevbtn.onclick = this.__proto__.prev.bind(this);
+        this.prevbtn.onclick = this.prev.bind(this);
     }
 
     if( this.config.autoplay ){
-        this.__proto__.play.call(this);
+        this.play();
     }
+};
+
+Carousel.prototype.play = function() {
+    this.interval = window.setInterval( this.next.bind(this), this.config.delay);
+};
+
+Carousel.prototype.stopPlay = function(){
+    clearInterval(this.interval);   
 };
 
 Carousel.prototype.next = function () {
     var current = this.current,
-      target = (typeof this.slides[this.current+1] === 'undefined')  ? 0 : this.current + 1;
+      next = current + 1,
+      target = (typeof this.slides[next] === 'undefined')  ? 0 : next;
 
     this.current = target;
-    this.__proto__.animate.call(this,current,target);
+    this.animate(current,target);
 };
 
 Carousel.prototype.prev = function () {
     var current = this.current,
-      target = (typeof this.slides[this.current-1] === 'undefined')  ? 0 : this.current - 1;
+      previous = current-1,
+      target = (typeof this.slides[previous] === 'undefined')  ? 0 : previous;
 
     this.current = target;
-    this.__proto__.animate.call(this,current,target);
+    this.animate(current,target);
 };
 
 Carousel.prototype.selectSlide = function(target) {
@@ -61,7 +70,8 @@ Carousel.prototype.selectSlide = function(target) {
 };
 
 Carousel.prototype.addThumbnails = function(){
-    // add to init, add default container class to config, add to itit and build placeholder thumbnails dynamically 
+    // placeholder thumbnails dynamically 
+    // @todo: possibly add some default images, and/or change thumbnail elements to something other than button
     var index = 0,
       total = this.total,
       thumbWrapper = document.querySelector('.' + this.config.thumbWrapper);
@@ -69,10 +79,9 @@ Carousel.prototype.addThumbnails = function(){
         var thumbEle = document.createElement('button');
         thumbEle.className = this.config.thumbClass;
         thumbEle.innerHTML = index+1;
-        thumbEle.onclick = this.__proto__.selectSlide.bind(this,index);
+        thumbEle.onclick = this.selectSlide.bind(this,index);
         thumbWrapper.appendChild(thumbEle);
-    }  
-    // also add "event listener" for the selectSlide for each of the thumbnails so users can choose one if desired. 
+    }
 }
 
 Carousel.prototype.config = function (settings) {
@@ -86,15 +95,7 @@ Carousel.prototype.config = function (settings) {
         "thumbWrapper"  : "thumbs",
         "thumbClass"    : "selectSlide"
       };
-    this.config = this.__proto__.merge( config, settings );
-};
-
-Carousel.prototype.play = function () {
-    this.interval = window.setInterval( this.__proto__.next.bind(this), this.config.delay);
-};
-
-Carousel.prototype.stopPlay = function () {
-    clearInterval(this.interval);
+    this.config = this.merge( config, settings );
 };
 
 Carousel.prototype.animate = function ( current, target ) {
@@ -110,7 +111,7 @@ Carousel.prototype.merge = function (target,source) {
             var sourceProperty = source[property];
             if(typeof sourceProperty === 'object') {
                 // call this same function recursively
-                merged[property] = this.__proto__.merge( merged[property], sourceProperty );
+                merged[property] = this.merge( merged[property], sourceProperty );
                 continue;
             }
             merged[property] = sourceProperty;
