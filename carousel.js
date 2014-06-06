@@ -48,10 +48,7 @@ Carousel.prototype.setSource = function () {
 };
 
 Carousel.prototype.buildSlides = function () {
-    var slides = [
-        {"content" : "TestBob"},
-        {"content" : "Testy McTester"}
-    ],
+    var slides = this.getJson(),
       slideElements = slides.length,
       index = 0;
     for (index; index < slideElements; index++) {
@@ -116,12 +113,12 @@ Carousel.prototype.addThumbnails = function () {
 Carousel.prototype.config = function (settings) {
     var settings = (typeof settings === 'object') ? settings : {},
        config = {
+        "thumbnails"    : false,
+        "autoplay"      : false,
         "sourceUrl"     : false,
         "wrapperClass"  : "slidesWrapper",
         "frameClass"    : "slide",
-        "autoplay"      : false,
         "delay"         : 4000, // 4 seconds
-        "thumbnails"    : false,
         "thumbWrapper"  : "thumbs",
         "thumbClass"    : "selectSlide"
       };
@@ -132,6 +129,18 @@ Carousel.prototype.animate = function ( current, target ) {
     // add some animation here - but let's wait until we decide on a library or method (CSS animation?)
     this.slides[current].className = this.config.frameClass;
     this.slides[target].className = this.config.frameClass + " active";
+};
+
+Carousel.prototype.getJson = function () {
+    var req = new XMLHttpRequest();
+    var list = [];
+    req.open('get', this.config.sourceUrl, false);
+    req.onload = function(resp){
+        list = resp.target.response;
+        return list;
+    };
+    req.send();
+    return JSON.parse(list);
 };
 
 Carousel.prototype.merge = function (target,source) {

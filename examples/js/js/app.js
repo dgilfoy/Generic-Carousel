@@ -33,7 +33,8 @@
     slider2 = new Carousel(opts2),
     slider3 = new Carousel({
         "wrapperClass"  : "carousel3-wrapper",
-        "sourceUrl"   : "external"  
+        "sourceUrl"     : "js/externalSlides.json",
+        "autoplay"      : true 
     });
     
     slider1.init(opts);
