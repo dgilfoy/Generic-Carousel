@@ -34,7 +34,10 @@
     slider3 = new Carousel({
         "wrapperClass"  : "carousel3-wrapper",
         "sourceUrl"     : "js/externalSlides.json",
-        "autoplay"      : true 
+        "thumbs"        : {
+            "show"          : true,
+            "thumbClass"    : "thumbs"
+        }
     });
     
     slider1.init(opts);
