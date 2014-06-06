@@ -52,7 +52,7 @@ Carousel.prototype.buildSlides = function () {
       slideElements = slides.length,
       index = 0;
     for (index; index < slideElements; index++) {
-        var slideEle = document.createElement('div');
+        var slideEle = document.createElement(this.config.frameEle);
         slideEle.className = this.config.frameClass;
         slideEle.innerHTML = slides[index].content;
         this.container.appendChild(slideEle);    
@@ -121,6 +121,7 @@ Carousel.prototype.config = function (settings) {
         "sourceUrl"     : false,
         "wrapperClass"  : "slidesWrapper",
         "frameClass"    : "slide",
+        "frameEle"      : "div",
         "delay"         : 4000, // 4 seconds
         "thumbs"        : {
             "show"      : false,
