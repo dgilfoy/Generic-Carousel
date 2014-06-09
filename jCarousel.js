@@ -26,6 +26,7 @@
 
         if( this.config.thumbs.show !== false ) {
             this.addThumbnails();
+            console.log(this.config);
         }
 
         if( this.config.autoplay ){
@@ -37,7 +38,6 @@
         
         this.slideWrapper = this.container.children('.' + this.config.wrapperClass );
         this.slides = this.slideWrapper.children('.'+  this.config.frameClass);
-        console.log(this.container);
         this.current = this.config.first;
         this.container.css({"display" : "block"});
         $(this.slides[this.current]).addClass('active');
@@ -85,7 +85,7 @@
     Carousel.prototype.prev = function () {
         var current = this.current,
           previous = current-1,
-          target = (typeof this.slides[previous] === 'undefined')  ? (this.slides.length - 1) : previous;
+          target = (typeof this.slides[previous] === 'undefined')  ? (this.total - 1) : previous;
 
         this.current = target;
         this.animate(current,target);
@@ -137,7 +137,7 @@
                 "thumbClass": "selectSlide"
             }
           };
-        this.config = $.extend( config, settings );
+        this.config = $.extend( true, config, settings );
     };
 
     Carousel.prototype.animate = function ( current, target ) {

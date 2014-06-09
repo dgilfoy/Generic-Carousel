@@ -79,7 +79,7 @@ Carousel.prototype.next = function () {
 Carousel.prototype.prev = function () {
     var current = this.current,
       previous = current-1,
-      target = (typeof this.slides[previous] === 'undefined')  ? 0 : previous;
+      target = (typeof this.slides[previous] === 'undefined')  ? ( this.total - 1 ) : previous;
 
     this.current = target;
     this.animate(current,target);

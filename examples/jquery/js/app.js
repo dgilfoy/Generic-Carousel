@@ -22,7 +22,10 @@
 
     // Create Carousel;
     var car1 = $('#carousel1').jCarousel({
-        "sourceUrl"     : "js/externalSlides.json"
+        "sourceUrl"     : "js/externalSlides.json",
+        "thumbs"        : {
+            "show"  : true
+        }
     });
 }(jQuery));
 
