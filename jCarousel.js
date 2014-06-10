@@ -24,19 +24,12 @@
             this.setSource();
         }
 
-        if( this.config.thumbs.show !== false ) {
-            this.addThumbnails();
-        }
-
-        if( this.config.autoplay ){
-            this.play();
-        }
     };
 
     Carousel.prototype.setSource = function () {
-        
-        this.slideWrapper = this.container.children('.' + this.config.wrapperClass );
-        this.slides = this.slideWrapper.children('.'+  this.config.frameClass);
+        this.doc = document;
+        this.slideWrapper = $(this.container.selector + ' .' + this.config.wrapperClass);
+        this.slides = $( this.slideWrapper ).children().get();
         this.current = this.config.first;
         this.container.css({"display" : "block"});
         $(this.slides[this.current]).addClass('active');
@@ -45,6 +38,14 @@
 
         $('.ctrlbutton .next').on("click", this.next.bind(this));
         $('.ctrlbutton .prev').on("click", this.prev.bind(this));
+
+        if( this.config.thumbs.show !== false ) {
+            this.addThumbnails();
+        }
+
+        if( this.config.autoplay ){
+            this.play();
+        }
     };
 
     Carousel.prototype.buildSlides = function () {
@@ -97,26 +98,26 @@
             this.slides[current].className = this.config.frameClass;
             this.slides[target].className = this.config.frameClass + ' active';
         }
-        
     };
 
     Carousel.prototype.addThumbnails = function () {
         // placeholder thumbnails dynamically 
         // @todo: possibly add some default images, and/or change thumbnail elements to something other than button
         var index = 0,
-          total = this.total
+          total = this.slides.length,
           thumbConfig = this.config.thumbs,
-          slideWrapper = this.container.children('.' + this.config.wrapperClass ),
-          thumbWrapper = slideWrapper.children('.' + thumbConfig.container);
+          thumbWrapper = $( this.container.selector + ' .' + thumbConfig.container);
         if( thumbWrapper === null ) {  // there isn't a wrapper container for the thumbnails.
-            thumbWrapper = document.querySelector('.' +  this.config.wrapperClass );  // default to the main Carousel container
+            thumbWrapper = $( this.container.selector + ' .' +  this.config.wrapperClass );  // default to the main Carousel container
         };
         for( index; index < total; index++ ) {
-            var thumbEle = document.createElement(thumbConfig.thumbEle);
+            // document.createElement seems faster than $(<element>) and even $(<element></element>), so might consider
+            // switching the buildSlides function to use this method instead.
+            var thumbEle = document.createElement(thumbConfig.thumbEle),
             thumbEle.className = thumbConfig.thumbClass;
             thumbEle.innerHTML = index+1;
             thumbEle.onclick = this.selectSlide.bind(this,index);
-            thumbWrapper.appendChild(thumbEle);
+            thumbWrapper.append(thumbEle);
         }
     };
 
@@ -137,7 +138,7 @@
                 "thumbClass": "selectSlide"
             }
           };
-        this.config = $.extend( true, config, settings );
+        this.config = $.extend( true, config, settings ); // deep extend
     };
 
     Carousel.prototype.animate = function ( current, target ) {

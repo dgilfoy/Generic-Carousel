@@ -32,6 +32,7 @@ Carousel.prototype.setSource = function () {
     // @todo: abstract this out somehow so you can load the slides via an external call and build the slides dynamically.
     
     this.current = 0,
+    this.interval = false,
       this.container = doc.querySelector(parentContainer);
     if(this.config.sourceUrl) {
         // send a GET xmlhttp request to retrieve the json data and build the slides
@@ -64,7 +65,8 @@ Carousel.prototype.play = function () {
 };
 
 Carousel.prototype.stopPlay = function () {
-    clearInterval(this.interval);   
+    clearInterval(this.interval);
+    this.interval = false;
 };
 
 Carousel.prototype.next = function () {
