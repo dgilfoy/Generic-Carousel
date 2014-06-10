@@ -26,7 +26,6 @@
 
         if( this.config.thumbs.show !== false ) {
             this.addThumbnails();
-            console.log(this.config);
         }
 
         if( this.config.autoplay ){
@@ -107,7 +106,8 @@
         var index = 0,
           total = this.total
           thumbConfig = this.config.thumbs,
-          thumbWrapper = document.querySelector('.' + thumbConfig.container);
+          slideWrapper = this.container.children('.' + this.config.wrapperClass ),
+          thumbWrapper = slideWrapper.children('.' + thumbConfig.container);
         if( thumbWrapper === null ) {  // there isn't a wrapper container for the thumbnails.
             thumbWrapper = document.querySelector('.' +  this.config.wrapperClass );  // default to the main Carousel container
         };
@@ -118,7 +118,7 @@
             thumbEle.onclick = this.selectSlide.bind(this,index);
             thumbWrapper.appendChild(thumbEle);
         }
-    }
+    };
 
     Carousel.prototype.config = function (settings) {
         var settings = (typeof settings === 'object') ? settings : {},
