@@ -113,7 +113,7 @@
         for( index; index < total; index++ ) {
             // document.createElement seems faster than $(<element>) and even $(<element></element>), so might consider
             // switching the buildSlides function to use this method instead.
-            var thumbEle = document.createElement(thumbConfig.thumbEle),
+            var thumbEle = document.createElement(thumbConfig.thumbEle);
             thumbEle.className = thumbConfig.thumbClass;
             thumbEle.innerHTML = index+1;
             thumbEle.onclick = this.selectSlide.bind(this,index);
