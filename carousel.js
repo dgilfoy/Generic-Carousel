@@ -91,8 +91,7 @@ Carousel.prototype.selectSlide = function (target) {
     var current = this.current;
     this.current = target;
     if( this.slides.length > 0 && this.slides[current].hasOwnProperty('className')){
-        this.slides[current].className = this.config.frameClass;
-        this.slides[target].className = this.config.frameClass + ' active';
+        this.animate(current,target);
     }
     
 };
@@ -125,7 +124,8 @@ Carousel.prototype.config = function (settings) {
         "frameClass"    : "slide",
         "frameEle"      : "div",
         "delay"         : 4000, // 4 seconds
-        "animation"     : false,
+        "animationIn"   : false,
+        "animationOut"  : false,  
         "thumbs"        : {
             "show"      : false,
             "container" : "thumbsWrapper",
@@ -142,9 +142,19 @@ Carousel.prototype.addConfig = function (config) {
 
 Carousel.prototype.animate = function ( current, target ) {
     // add some animation here - but let's wait until we decide on a library or method (CSS animation?)
-    var animationEffect = ( this.config.animation ) ? " "+this.config.animation : "";
-    this.slides[current].className = this.config.frameClass;
-    this.slides[target].className = this.config.frameClass + " active" + animationEffect;
+    var animationInEffect = ( this.config.animationIn ) ? " "+this.config.animationIn : "";
+    var animationOutEffect = ( this.config.animationOut ) ? " "+this.config.animationOut : "";
+
+    this.slides[current].className = this.config.frameClass + animationOutEffect;
+    this.slides[target].className = this.config.frameClass + " active" + animationInEffect;
+
+    this.slides[current].addEventListener("webkitAnimationEnd", this.animationEnd.bind(this), false );
+
+};
+
+Carousel.prototype.animationEnd = function (e) {
+    var active = ( e.animationName === this.config.animationIn ) ? " active" : "";
+    e.target.className = this.config.frameClass + active;
 };
 
 Carousel.prototype.getJson = function () {

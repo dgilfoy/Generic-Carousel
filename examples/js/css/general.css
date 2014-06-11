@@ -5,33 +5,62 @@
 	padding: 10px;
 	overflow: hidden;
 }
+.carousel .slides{
+	position:relative;
+	overflow: hidden;
+	min-height: 100px;
+}
 .carousel .slide{
 	display:none;
-	width: 500px;
 	margin: 0 auto;
+	position: absolute;
+	width: 500px;
+	min-height: 50px;
+	left: 550px;
 }
 .carousel .slide.active{
 	display:block;
 	padding: 10px 0;
 	background-color: #f0f0f0;
 	margin-bottom: 5px;
+	width: 500px;
+	left: 0;
+}
+.carousel .slide.slideout{
+	display:block;
 }
 
 .carousel .slide.active.slidein{
-	animation-duration: 2s;
+	animation-duration: 1s;
 	animation-name: slidein;
 	-webkit-animation-name: slidein;
-	-webkit-animation-duration: 2s;
+	-webkit-animation-duration: 1s;
+	overflow:auto;
 }
-
+.carousel .slide.slideout{
+	animation-duration: 1s;
+	animation-name: slideout;
+	-webkit-animation-name: slideout;
+	-webkit-animation-duration: 1s;
+	overflow:auto;
+}
 @-webkit-keyframes slidein{
 	from {
 		margin-left: 100%;
-		width: 0;
 	}
 
 	to {
 		margin-left: 0;
-		width: 500;
+	}
+}
+@-webkit-keyframes slideout{
+	from {
+		margin-left: 0;
+		display : block;
+	}
+
+	to {
+		margin-right: 100%;
+		display: none;
 	}
 }

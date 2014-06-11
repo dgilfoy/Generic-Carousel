@@ -31,7 +31,8 @@
       .then( function(slider){
         var opts = {
             wrapperClass: 'carousel-wrapper',
-            thumbnails: true, 
+            thumbnails: true,
+            delay: 1000  
         };
         slider.init( opts );
         return deferTest( function () {
@@ -62,9 +63,13 @@
     })
       .then( function (slider) {
         return deferTest( function () {
-            test('Add animation config setting', 1, function() {
-                slider.addConfig({"animation" : "slidein"});
-                ok(slider.config.animation, 'Slide In animation is added');
+            test('Enable Slide In Animation', 2, function() {
+                slider.addConfig({
+                    "animationIn" : "slidein",
+                    "animationOut": "slideout"
+                });
+                ok(slider.config.animationIn, 'Slide In animation is added');
+                ok(slider.config.animationOut, 'Slide Out animation is added');
             });   
         }, slider );
     })
@@ -81,6 +86,24 @@
             test('Carousel AutoPlay Off', 1, function() {
                 slider.stopPlay();
                 ok( !slider.interval, 'Slide element is stopped');   
+            } );
+        }, slider, 4000);
+    })
+      .then( function (slider) {
+        return deferTest( function () {
+            test('Add thumbnails', 1, function() {
+                slider.addConfig({"thumbs" : { "show" : true}});
+                slider.addThumbnails();
+                ok( slider.config.thumbs.show, 'Add Thumbnails');
+                // maybe add test to see if thumbnails were added to the DOM  
+            } );
+        }, slider, 5000);
+    })
+      .then( function (slider) {
+        return deferTest( function () {
+            test('Click to first slide', 1, function() {
+               slider.selectSlide(0);
+               ok(slider.current === 0, 'Slider is set to first slide');
             } );
         }, slider, 5000);
     })

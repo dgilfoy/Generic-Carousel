@@ -22,23 +22,17 @@
 
     // Create Carousel;
     var opts = {
-        wrapperClass: 'carousel-wrapper'
-    }
-    opts2 = {
-        wrapperClass: 'carousel2-wrapper',
-        autoplay    : true,
-        delay       : 6000
+        "wrapperClass"  : "carousel-wrapper",
+        "animationIn"     : "slidein",
+        "animationOut"    : "slideout"   
     },
-    slider1 = new Carousel(),
-    slider2 = new Carousel(opts2),
-    slider3 = new Carousel({
-        "wrapperClass"  : "carousel3-wrapper",
-        "sourceUrl"     : "js/externalSlides.json",
-        "thumbs"        : {
-            "show"          : true,
-            "thumbClass"    : "thumbs"
-        }
-    });
+    opts2 = {
+        "wrapperClass": "carousel2-wrapper",
+        "autoplay"    : true,
+        "delay"       : 6000
+    },
+    slider1 = new Carousel();
+    //slider2 = new Carousel(opts2),
     
     slider1.init(opts);
 
