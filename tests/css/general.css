@@ -1,15 +1,38 @@
-.carousel-wrapper{
+.carousel{
 	display:none;
-	width: 80%;
+	width: 500px;
 	margin: 20px auto;
 	padding: 10px;
+	overflow: hidden;
 }
-.carousel-wrapper .slide{
+.carousel .slide{
 	display:none;
+	width: 500px;
+	margin: 0 auto;
 }
-.carousel-wrapper .slide.active{
+.carousel .slide.active{
 	display:block;
 	padding: 10px 0;
 	background-color: #f0f0f0;
 	margin-bottom: 5px;
+}
+
+.carousel .slide.active.slidein{
+	animation-duration: 2s;
+	animation-name: slidein;
+	-webkit-animation-name: slidein;
+	-webkit-animation-duration: 2s;
+	overflow:hidden;
+}
+
+@-webkit-keyframes slidein{
+	from {
+		margin-left: 100%;
+		width: 0;
+	}
+
+	to {
+		margin-left: 0;
+		width: 500;
+	}
 }

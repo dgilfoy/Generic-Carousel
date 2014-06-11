@@ -58,6 +58,14 @@
                 slider.prev();
                 ok(slider.current === 0, 'Slide element is decremented');
             });   
+        }, slider, 2000 );
+    })
+      .then( function (slider) {
+        return deferTest( function () {
+            test('Add animation config setting', 1, function() {
+                slider.addConfig({"animation" : "slidein"});
+                ok(slider.config.animation, 'Slide In animation is added');
+            });   
         }, slider );
     })
       .then( function (slider) {

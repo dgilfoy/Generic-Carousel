@@ -125,6 +125,7 @@ Carousel.prototype.config = function (settings) {
         "frameClass"    : "slide",
         "frameEle"      : "div",
         "delay"         : 4000, // 4 seconds
+        "animation"     : false,
         "thumbs"        : {
             "show"      : false,
             "container" : "thumbsWrapper",
@@ -135,10 +136,15 @@ Carousel.prototype.config = function (settings) {
     this.config = this.merge( config, settings );
 };
 
+Carousel.prototype.addConfig = function (config) {
+    this.config = this.merge(this.config, config );
+};
+
 Carousel.prototype.animate = function ( current, target ) {
     // add some animation here - but let's wait until we decide on a library or method (CSS animation?)
+    var animationEffect = ( this.config.animation ) ? " "+this.config.animation : "";
     this.slides[current].className = this.config.frameClass;
-    this.slides[target].className = this.config.frameClass + " active";
+    this.slides[target].className = this.config.frameClass + " active" + animationEffect;
 };
 
 Carousel.prototype.getJson = function () {
