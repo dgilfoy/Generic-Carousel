@@ -100,7 +100,7 @@ Carousel.prototype.addThumbnails = function () {
     // placeholder thumbnails dynamically 
     // @todo: possibly add some default images, and/or change thumbnail elements to something other than button
     var index = 0,
-      total = this.total
+      total = this.total,
       thumbConfig = this.config.thumbs,
       thumbWrapper = document.querySelector('.' + thumbConfig.container);
     if( thumbWrapper === null ) {  // there isn't a wrapper container for the thumbnails.
@@ -145,15 +145,14 @@ Carousel.prototype.animate = function ( current, target ) {
     var animationInEffect = ( this.config.animationIn ) ? " "+this.config.animationIn : "";
     var animationOutEffect = ( this.config.animationOut ) ? " "+this.config.animationOut : "";
 
+    //this.slides[current].addEventListener("webkitAnimationEnd", this.animationEnd.bind(this), false );
     this.slides[current].className = this.config.frameClass + animationOutEffect;
     this.slides[target].className = this.config.frameClass + " active" + animationInEffect;
-
-    this.slides[current].addEventListener("webkitAnimationEnd", this.animationEnd.bind(this), false );
-
 };
 
 Carousel.prototype.animationEnd = function (e) {
     var active = ( e.animationName === this.config.animationIn ) ? " active" : "";
+    console.log(e);
     e.target.className = this.config.frameClass + active;
 };
 
