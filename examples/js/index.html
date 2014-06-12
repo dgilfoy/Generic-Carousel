@@ -14,36 +14,43 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="../assets/css/screen.css">
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+        <div class="container">
+            <header class="topbar">
+                <section>
+                    <h1>Generic Carousel</h1>
+                    <p>"Pure JavaScript" (No dependencies)</p>
+                </section>
+            </header>
+            <section class="carousel carousel-wrapper">
+                <div class="cwrapp">
+                    <div class="slides">
+                        <div class="slide">Content for slide 1 - Carousel 1</div>
+                        <div class="slide">Content for slide 2 - Carousel 1</div>
+                        <div class="slide">Content for slide 3 - Carousel 1 - blee bloo, bleep bloop, see you, blah blah blah, this is a long long slide</div>
+                    </div>
+                    <div class="controls ctrlbutton">
+                        <button class="prev">Prev</button>
+                        <button class="next">Next</button>
+                    </div> 
+                </div>       
+            </section>
 
-        <!-- Add your site or application content here -->
-        <section class="carousel carousel-wrapper">
-            <div class="slides">
-                <div class="slide">Content for slide 1 - Carousel 1</div>
-                <div class="slide">Content for slide 2 - Carousel 1</div>
-                <div class="slide">Content for slide 3 - Carousel 1</div>
-            </div>
-            <div class="ctrlbutton">
-                <button class="prev">Prev</button>
-                <button class="next">Next</button>
-            </div>        
-        </section>
-
-        <section class="carousel carousel2-wrapper">
-            <div class="slides">
-                <div class="slide">Content for slide 1 - Carousel 2</div>
-                <div class="slide">Content for slide 2 - Carousel 2</div>
-                <div class="slide">Content for slide 3 - Carousel 2</div>
-            </div>
-            <div class="ctrlbutton"></div>        
-        </section>
-
+            <section class="carousel carousel2-wrapper">
+                <div class="slides">
+                    <div class="slide">Content for slide 1 - Carousel 2</div>
+                    <div class="slide">Content for slide 2 - Carousel 2</div>
+                    <div class="slide">Content for slide 3 - Carousel 2</div>
+                </div>
+                <div class="ctrlbutton"></div>        
+            </section>
+            <footer>
+                
+            </footer>
+        </div>
         <script src="../../carousel.js"></script>
         <script src="js/app.js"></script>
         

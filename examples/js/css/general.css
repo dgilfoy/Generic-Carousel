@@ -30,21 +30,21 @@
 	display:block;
 }
 
-.carousel .slide.active.slidein{
+.carousel .slide.active.slideinleft{
 	animation-duration: 1s;
-	animation-name: slidein;
-	-webkit-animation-name: slidein;
+	animation-name: slideinLeft;
+	-webkit-animation-name: slideinLeft;
 	-webkit-animation-duration: 1s;
 	overflow:auto;
 }
-.carousel .slide.slideout{
+.carousel .slide.slideoutleft{
 	animation-duration: 1s;
-	animation-name: slideout;
-	-webkit-animation-name: slideout;
+	animation-name: slideoutLeft;
+	-webkit-animation-name: slideoutLeft;
 	-webkit-animation-duration: 1s;
 	overflow:auto;
 }
-@-webkit-keyframes slidein{
+@-webkit-keyframes slideinLeft{
 	from {
 		margin-left: 100%;
 	}
@@ -53,7 +53,7 @@
 		margin-left: 0;
 	}
 }
-@-webkit-keyframes slideout{
+@-webkit-keyframes slideoutLeft{
 	from {
 		margin-left: 0;
 		display : block;

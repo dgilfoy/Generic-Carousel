@@ -23,8 +23,8 @@
     // Create Carousel;
     var opts = {
         "wrapperClass"  : "carousel-wrapper",
-        "animationIn"     : "slidein",
-        "animationOut"    : "slideout"   
+        "animationIn"     : "slideinLeft",
+        "animationOut"    : "slideoutLeft"   
     },
     opts2 = {
         "wrapperClass": "carousel2-wrapper",

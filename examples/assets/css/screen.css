@@ -1,0 +1,124 @@
+/* line 41, ../sass/_semantic.scss */
+body {
+  width: 100%;
+  *zoom: 1;
+}
+/* line 27, ../sass/_semantic.scss */
+body:before, body:after {
+  content: "";
+  display: table;
+}
+/* line 31, ../sass/_semantic.scss */
+body:after {
+  clear: both;
+}
+
+/* line 4, ../sass/screen.scss */
+section, header, footer {
+  display: inline-block;
+  float: left;
+  width: 97.91667%;
+  margin: 0 1.04167%;
+}
+
+/* line 7, ../sass/screen.scss */
+header.topbar {
+  text-align: center;
+}
+
+/* line 10, ../sass/screen.scss */
+.container {
+  width: 90%;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+/* line 15, ../sass/screen.scss */
+.carousel {
+  display: none;
+}
+/* line 17, ../sass/screen.scss */
+.carousel .cwrapp {
+  display: inline-block;
+  float: left;
+  width: 47.91667%;
+  margin: 0 1.04167%;
+  margin-left: 26.04167%;
+}
+/* line 20, ../sass/screen.scss */
+.carousel .cwrapp .slides {
+  margin-bottom: 10px;
+  display: inline-block;
+  float: left;
+  width: 89.58333%;
+  margin: 0 1.04167%;
+  height: auto;
+  min-height: 70px;
+  overflow: hidden;
+  position: relative;
+}
+/* line 27, ../sass/screen.scss */
+.carousel .cwrapp .slides .slide {
+  display: none;
+  padding: 10px;
+}
+/* line 31, ../sass/screen.scss */
+.carousel .cwrapp .slides .slide.slideinLeft {
+  display: inline;
+  animation-duration: 1s;
+  animation-name: slideinLeft;
+  -webkit-animation-name: slideinLeft;
+  -webkit-animation-duration: 1s;
+  overflow: hidden;
+  position: absolute;
+}
+/* line 43, ../sass/screen.scss */
+.carousel .cwrapp .slides .slide.active {
+  display: block;
+  background-color: #f0f0f0;
+  margin-bottom: 5px;
+  width: 100%;
+}
+/* line 50, ../sass/screen.scss */
+.carousel .cwrapp .controls {
+  display: inline-block;
+  float: left;
+  width: 89.58333%;
+  margin: 0 1.04167%;
+}
+/* line 52, ../sass/screen.scss */
+.carousel .cwrapp .controls .next {
+  float: right;
+}
+/* line 55, ../sass/screen.scss */
+.carousel .cwrapp .controls .prev {
+  float: left;
+}
+
+@-webkit-keyframes slideinLeft {
+  /* line 64, ../sass/screen.scss */
+  from {
+    margin-left: 100%;
+    width: 100%;
+  }
+
+  /* line 69, ../sass/screen.scss */
+  to {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes slideoutLeft {
+  /* line 75, ../sass/screen.scss */
+  from {
+    margin-left: 0;
+    display: block;
+  }
+
+  /* line 80, ../sass/screen.scss */
+  to {
+    margin-right: 100%;
+    display: none;
+  }
+}

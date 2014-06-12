@@ -1,0 +1,84 @@
+@import 'semantic';
+@import 'base';
+
+section, header, footer{
+	@include column(12);
+}
+header.topbar{
+	text-align: center;
+}
+.container{
+	width: 90%;
+	max-width: 1260px;
+	margin: 0 auto;
+}
+.carousel{
+	display:none;
+	.cwrapp{
+		@include column(6);
+		@include push(3);
+		.slides{
+			margin-bottom: 10px;
+			@include column(11);
+			height: auto;
+			min-height: 70px;
+			overflow:hidden;
+			position:relative;
+			.slide{
+				display:none;
+				padding: 10px;
+			}
+			.slide.slideinLeft{
+				display:inline;
+				animation-duration: 1s;
+				animation-name: slideinLeft;
+				-webkit-animation-name: slideinLeft;
+				-webkit-animation-duration: 1s;
+				overflow:hidden;
+				position:absolute;
+			}
+			.slide.slideout{
+
+			}
+			.slide.active{
+				display:block;
+				background-color: #f0f0f0;
+				margin-bottom: 5px;
+				width:100%;
+			}
+		}
+		.controls{
+			@include column(11);
+			.next{
+				float:right;
+			}
+			.prev{
+				float:left;
+			}
+		}
+	}
+}
+
+
+@-webkit-keyframes slideinLeft{
+	from {
+		margin-left: 100%;
+		width:100%;
+	}
+
+	to {
+		margin-left: 0;
+		width:100%;
+	}
+}
+@-webkit-keyframes slideoutLeft{
+	from {
+		margin-left: 0;
+		display : block;
+	}
+
+	to {
+		margin-right: 100%;
+		display: none;
+	}
+}
