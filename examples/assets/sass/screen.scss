@@ -14,71 +14,56 @@ header.topbar{
 }
 .carousel{
 	display:none;
-	.cwrapp{
-		@include column(6);
-		@include push(3);
-		.slides{
-			margin-bottom: 10px;
-			@include column(11);
-			height: auto;
-			min-height: 70px;
+	@include column(6);
+	@include push(3);
+	.slides{
+		margin-bottom: 10px;
+		@include column(11);
+		height: auto;
+		min-height: 70px;
+		overflow:hidden;
+		position:relative;
+		.slide{
+			display:none;
+			padding: 10px;
+			position: absolute;
+		}
+		.slide.slideinNext{
+			display:inline;
+			@include slideAnimation("slideinNext", 1s);
 			overflow:hidden;
-			position:relative;
-			.slide{
-				display:none;
-				padding: 10px;
-			}
-			.slide.slideinLeft{
-				display:inline;
-				animation-duration: 1s;
-				animation-name: slideinLeft;
-				-webkit-animation-name: slideinLeft;
-				-webkit-animation-duration: 1s;
-				overflow:hidden;
-				position:absolute;
-			}
-			.slide.slideout{
-
-			}
-			.slide.active{
-				display:block;
-				background-color: #f0f0f0;
-				margin-bottom: 5px;
-				width:100%;
-			}
+			position:absolute;
 		}
-		.controls{
-			@include column(11);
-			.next{
-				float:right;
-			}
-			.prev{
-				float:left;
-			}
+		.slide.slideoutNext{
+			display:inline;
+			@include slideAnimation("slideoutNext", 1s);
+			overflow:hidden;
+			position:absolute;
+		}
+		.slide.active{
+			display:block;
+			margin-bottom: 5px;
+			background: #fff;
+			opacity: 100;
+			width:100%;
+		}
+	}
+	.controls{
+		@include column(11);
+		.next{
+			float:right;
+		}
+		.prev{
+			float:left;
 		}
 	}
 }
 
-
-@-webkit-keyframes slideinLeft{
-	from {
-		margin-left: 100%;
-		width:100%;
-	}
-
-	to {
-		margin-left: 0;
-		width:100%;
-	}
+@-webkit-keyframes slideinNext{
+	from { margin-left: 100%; }
+	to { margin-left: 0; }
 }
-@-webkit-keyframes slideoutLeft{
-	from {
-		margin-left: 0;
-		display : block;
-	}
-
-	to {
-		margin-right: 100%;
-		display: none;
-	}
+@-webkit-keyframes slideoutNext{
+	from { margin-left: 0; }
+	to { margin-left: -100%; }
 }

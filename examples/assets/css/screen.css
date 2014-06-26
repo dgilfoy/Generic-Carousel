@@ -36,17 +36,14 @@ header.topbar {
 /* line 15, ../sass/screen.scss */
 .carousel {
   display: none;
-}
-/* line 17, ../sass/screen.scss */
-.carousel .cwrapp {
   display: inline-block;
   float: left;
   width: 47.91667%;
   margin: 0 1.04167%;
   margin-left: 26.04167%;
 }
-/* line 20, ../sass/screen.scss */
-.carousel .cwrapp .slides {
+/* line 19, ../sass/screen.scss */
+.carousel .slides {
   margin-bottom: 10px;
   display: inline-block;
   float: left;
@@ -57,68 +54,80 @@ header.topbar {
   overflow: hidden;
   position: relative;
 }
-/* line 27, ../sass/screen.scss */
-.carousel .cwrapp .slides .slide {
+/* line 26, ../sass/screen.scss */
+.carousel .slides .slide {
   display: none;
   padding: 10px;
+  position: absolute;
 }
 /* line 31, ../sass/screen.scss */
-.carousel .cwrapp .slides .slide.slideinLeft {
+.carousel .slides .slide.slideinNext {
   display: inline;
   animation-duration: 1s;
-  animation-name: slideinLeft;
-  -webkit-animation-name: slideinLeft;
+  animation-name: "slideinNext";
+  -webkit-animation-name: "slideinNext";
   -webkit-animation-duration: 1s;
+  -moz-animation-name: "slideinNext";
+  -moz-animation-duration: 1s;
+  overflow: hidden;
+  position: absolute;
+}
+/* line 37, ../sass/screen.scss */
+.carousel .slides .slide.slideoutNext {
+  display: inline;
+  animation-duration: 1s;
+  animation-name: "slideoutNext";
+  -webkit-animation-name: "slideoutNext";
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: "slideoutNext";
+  -moz-animation-duration: 1s;
   overflow: hidden;
   position: absolute;
 }
 /* line 43, ../sass/screen.scss */
-.carousel .cwrapp .slides .slide.active {
+.carousel .slides .slide.active {
   display: block;
-  background-color: #f0f0f0;
   margin-bottom: 5px;
+  background: #fff;
+  opacity: 100;
   width: 100%;
 }
-/* line 50, ../sass/screen.scss */
-.carousel .cwrapp .controls {
+/* line 51, ../sass/screen.scss */
+.carousel .controls {
   display: inline-block;
   float: left;
   width: 89.58333%;
   margin: 0 1.04167%;
 }
-/* line 52, ../sass/screen.scss */
-.carousel .cwrapp .controls .next {
+/* line 53, ../sass/screen.scss */
+.carousel .controls .next {
   float: right;
 }
-/* line 55, ../sass/screen.scss */
-.carousel .cwrapp .controls .prev {
+/* line 56, ../sass/screen.scss */
+.carousel .controls .prev {
   float: left;
 }
 
-@-webkit-keyframes slideinLeft {
-  /* line 64, ../sass/screen.scss */
+@-webkit-keyframes slideinNext {
+  /* line 63, ../sass/screen.scss */
   from {
     margin-left: 100%;
-    width: 100%;
   }
 
-  /* line 69, ../sass/screen.scss */
+  /* line 64, ../sass/screen.scss */
   to {
     margin-left: 0;
-    width: 100%;
   }
 }
 
-@-webkit-keyframes slideoutLeft {
-  /* line 75, ../sass/screen.scss */
+@-webkit-keyframes slideoutNext {
+  /* line 67, ../sass/screen.scss */
   from {
     margin-left: 0;
-    display: block;
   }
 
-  /* line 80, ../sass/screen.scss */
+  /* line 68, ../sass/screen.scss */
   to {
-    margin-right: 100%;
-    display: none;
+    margin-left: -100%;
   }
 }

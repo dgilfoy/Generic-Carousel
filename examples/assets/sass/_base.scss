@@ -3,3 +3,12 @@ $column-width: 60;
 $gutter-width: 20;
 
 $total-width: 100%;
+
+@mixin slideAnimation($animationName,$duration){
+	animation-duration: $duration;
+	animation-name: $animationName;
+	-webkit-animation-name: $animationName;
+	-webkit-animation-duration: $duration;
+	-moz-animation-name: $animationName;
+	-moz-animation-duration: $duration;
+}

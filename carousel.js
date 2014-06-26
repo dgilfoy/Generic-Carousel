@@ -38,8 +38,11 @@ Carousel.prototype.setSource = function () {
         // send a GET xmlhttp request to retrieve the json data and build the slides
         this.buildSlides();
     }
+
     this.slides = doc.querySelectorAll(parentContainer + ' .' + this.config.frameClass);
-    this.container.style.display = "block";
+    if( this.container && this.container.hasOwnProperty('style') ){
+        this.container.style.display = "block";
+    }
 
     this.selectSlide(this.current);
 
@@ -70,12 +73,13 @@ Carousel.prototype.stopPlay = function () {
 };
 
 Carousel.prototype.next = function () {
+    // @todo: change it so that "looping" is a setting and is on by default (?)
+    // same thing with previous.
     var current = this.current,
       next = current + 1,
       target = (typeof this.slides[next] === 'undefined')  ? 0 : next;
 
-    this.current = target;
-    this.animate(current,target);
+    this.animate(current,target, "Next");
 };
 
 Carousel.prototype.prev = function () {
@@ -83,17 +87,15 @@ Carousel.prototype.prev = function () {
       previous = current-1,
       target = (typeof this.slides[previous] === 'undefined')  ? ( this.total - 1 ) : previous;
 
-    this.current = target;
-    this.animate(current,target);
+    this.animate(current,target, "Prev");
 };
 
 Carousel.prototype.selectSlide = function (target) {
     var current = this.current;
-    this.current = target;
+    // calculate direction here, add it to the functionality, make "next by default"
     if( this.slides.length > 0 && this.slides[current].hasOwnProperty('className')){
-        this.animate(current,target);
+        this.animate(current,target, "Next");
     }
-    
 };
 
 Carousel.prototype.addThumbnails = function () {
@@ -140,20 +142,40 @@ Carousel.prototype.addConfig = function (config) {
     this.config = this.merge(this.config, config );
 };
 
-Carousel.prototype.animate = function ( current, target ) {
-    // add some animation here - but let's wait until we decide on a library or method (CSS animation?)
-    var animationInEffect = ( this.config.animationIn ) ? " "+this.config.animationIn : "";
-    var animationOutEffect = ( this.config.animationOut ) ? " "+this.config.animationOut : "";
+Carousel.prototype.animate = function ( current, target, direction ) {
+    var animationInEffect = ( this.config.animationIn ) ? this.config.animationIn + direction: "",
+      animationOutEffect = ( this.config.animationOut ) ? this.config.animationOut + direction : "",
+      animationInAction = document.querySelectorAll('.' + this.config.wrapperClass + ' .' + animationOutEffect );
+    if( animationInAction.length > 0 ){
+        // stop additional requests for changes until animation stops.  
+        // @todo:  add animation queue and let them build up
+        return false;
+    }
+    this.current = target;
+    // currently the setup here only allows you to animate the frame when the animation ends.  Let's eventually 
+    // add some functionality to end the animation (if possible) and increment it anyway.
+    if( target !== current ){
+        this.slides[current].className = this.config.frameClass + " active " + animationOutEffect;
+        /*this.slides[current].addEventListener(
+            "webkitAnimationEnd", 
+            this.animationEnd.bind(this,current, target, animationOutEffect), 
+        false);*/
+    }
+    this.slides[target].className = this.config.frameClass + " active " + animationInEffect;
+    this.slides[target].addEventListener(
+        "webkitAnimationEnd", 
+        this.animationEnd.bind(this, target, current, animationInEffect), 
+    false);
 
-    //this.slides[current].addEventListener("webkitAnimationEnd", this.animationEnd.bind(this), false );
-    this.slides[current].className = this.config.frameClass + animationOutEffect;
-    this.slides[target].className = this.config.frameClass + " active" + animationInEffect;
 };
 
-Carousel.prototype.animationEnd = function (e) {
-    var active = ( e.animationName === this.config.animationIn ) ? " active" : "";
-    console.log(e);
-    e.target.className = this.config.frameClass + active;
+Carousel.prototype.animationEnd = function (show,hide,effect,e) {
+    if( e.animationName === effect.trim(' ')) {
+        e.target.className = this.config.frameClass + " active";
+        if( show !== hide ){
+            this.slides[hide].className = this.config.frameClass;
+        }
+    } 
 };
 
 Carousel.prototype.getJson = function () {

@@ -1,0 +1,66 @@
+.carousel{
+	display:none;
+	width: 500px;
+	margin: 20px auto;
+	padding: 10px;
+	overflow: hidden;
+}
+.carousel .slides{
+	position:relative;
+	overflow: hidden;
+	min-height: 100px;
+}
+.carousel .slide{
+	display:none;
+	margin: 0 auto;
+	position: absolute;
+	width: 500px;
+	min-height: 50px;
+	left: 550px;
+}
+.carousel .slide.active{
+	display:block;
+	padding: 10px 0;
+	background-color: #f0f0f0;
+	margin-bottom: 5px;
+	width: 500px;
+	left: 0;
+}
+.carousel .slide.slideout{
+	display:block;
+}
+
+.carousel .slide.active.slideinleft{
+	animation-duration: 1s;
+	animation-name: slideinLeft;
+	-webkit-animation-name: slideinLeft;
+	-webkit-animation-duration: 1s;
+	overflow:auto;
+}
+.carousel .slide.slideoutleft{
+	animation-duration: 1s;
+	animation-name: slideoutLeft;
+	-webkit-animation-name: slideoutLeft;
+	-webkit-animation-duration: 1s;
+	overflow:auto;
+}
+@-webkit-keyframes slideinLeft{
+	from {
+		margin-left: 100%;
+	}
+
+	to {
+		margin-left: 0;
+	}
+}
+@-webkit-keyframes slideoutLeft{
+	from {
+		margin-left: 0;
+		display : block;
+	}
+
+	to {
+		margin-right: 100%;
+		display: none;
+	}
+}
