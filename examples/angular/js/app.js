@@ -37,13 +37,11 @@ var jsSlider = angular.module('jsSlider', []);
 
 jsSlider.directive(
     'ngCarousel', 
-    [ '$document', 
-    function ($document) {
+    [ '$document', '$animate', 
+    function ($document, $animate) {
         var defaults = {
             "autoplay"      : false,
             "sourceUrl"     : false,
-            "animationIn"   : false,
-            "animationOut"  : false,
             "frameClass"    : "slide",
             "frameEle"      : "div",
             "delay"         : 4000, // 4 seconds
@@ -58,11 +56,10 @@ jsSlider.directive(
             scope.carousel.config = {}; // define object to store all config data to
             // loop through the defaults, checking if there is an attribute set for any of them and
             // overwrite them as necessary.
-            angular.forEach( defaults, function (value,key) {
+            angular.forEach( defaults, function (value, key) {
                 scope.carousel.config[key] = attrs[key] || value;   
             });
         };
-        
         return {
             restrict : 'AC',
             scope   : {},
@@ -70,40 +67,54 @@ jsSlider.directive(
                 this.getScope = function () {
                     return $scope;
                 };
+                this.animateEndThen = function ( elem, callback ) {
+                    var handlers = [ "animationend", "webkitAnimationEnd", "oanimationend", "MSAnimationEnd"];
+                    angular.forEach( handlers, function (value, key) { 
+                        elem.on(value, function () {
+                            callback.apply();
+                        });
+                    });
+                }
+                this.animate = function (current, target, direction) {
+                    var slides = $scope.carousel.slides,
+                      currentSlide = angular.element(slides[current]),
+                      targetSlide = angular.element(slides[target]);
 
-                this.animate = function (current,target,text) {
-                    var animationInEffect = ( this.config.animationIn ) ? this.config.animationIn + direction: "",
-                      animationOutEffect = ( this.config.animationOut ) ? this.config.animationOut + direction : "",
-                      animationInAction = document.querySelectorAll('.' + this.config.wrapperClass + ' .' + animationOutEffect );
-                    if( animationInAction.length > 0 ){
-                        // stop additional requests for changes until animation stops.  
-                        // @todo:  add animation queue and let them build up
-                        return false;
-                    }
-                    this.current = target;
-                    // currently the setup here only allows you to animate the frame when the animation ends.  Let's eventually 
-                    // add some functionality to end the animation (if possible) and increment it anyway.
-                    if( target !== current ){
-                        this.slides[current].className = this.config.frameClass + " active " + animationOutEffect;
-                        /*this.slides[current].addEventListener(
-                            "webkitAnimationEnd", 
-                            this.animationEnd.bind(this,current, target, animationOutEffect), 
-                        false);*/
-                    }
-                    this.slides[target].className = this.config.frameClass + " active " + animationInEffect;
-                    this.slides[target].addEventListener(
-                        "webkitAnimationEnd", 
-                        this.animationEnd.bind(this, target, current, animationInEffect), 
-                    false);
+                    currentSlide.addClass('slideout' + direction);
+
+                    this.animateEndThen(currentSlide, function (){
+                        currentSlide.removeClass('active');
+                        currentSlide.removeClass('slideout' + direction);
+                    })
+
+                    targetSlide.addClass('slidein' + direction);
+
+                    this.animateEndThen(targetSlide, function () {
+                        targetSlide.addClass('active');
+                        targetSlide.removeClass('slidein' + direction);
+                    });
+                    
                 };
 
-                this.selectSlide = function (target) {
-                    var current = $scope.carousel.index.current;
+                this.selectSlide = function (target, direction) {
+                    var current = $scope.carousel.index.current,
+                      slides = $scope.carousel.slides;
+                    if ( angular.element( slides[current] ).hasClass('slidein' + direction )) {
+                        return;
+                    }
                     $scope.carousel.index.current = target;
                     // calculate direction here, add it to the functionality, make "next by default"
-                    if( this.slides.length > 0 && this.slides[current].hasOwnProperty('className')){
-                        this.animate(current,target, "Next");
+                    if( slides.length > 0 && slides[current].hasOwnProperty('className')){
+                        this.animate(current,target, direction);
+                        this.setIndex(target);
                     }
+                };
+                this.setIndex = function (current) {
+                    $scope.carousel.index.current = current;
+                    $scope.carousel.index.next = ( ( current + 1 ) < $scope.carousel.slides.length ) ?
+                      current + 1 : 0;
+                    $scope.carousel.index.prev = ( ( current - 1 ) < 0 ) ?
+                      ($scope.carousel.slides.length-1) : (current-1);
                 };
             },
             compile : function (tScope, tElem, tAttrs) {
@@ -111,7 +122,8 @@ jsSlider.directive(
                     pre : function (scope, elem, attrs) {
                         scope.carousel = {};
                         scope.carousel.index = {
-                            current : 0  // eventually we'll track next and previous this way.
+                            current : 0,  // eventually we'll track next and previous this way.
+                            next    : 1
                         };
                         setScopeDefaults(scope,attrs);
                         elem.css( "display" , "block" );
@@ -137,7 +149,9 @@ jsSlider.directive(
         slides = ( slidesClasses[0] === 'slides' ) ? 
             container[0].children : container[1].children;
         slides[0].className = config.frameClass + ' active';
+        parentScope.carousel.index.prev = (slides.length - 1);
     };
+
     return {
         restrict    : 'AC',
         scope       : {},
@@ -168,11 +182,10 @@ jsSlider.directive(
         next.onclick = nextBtn.bind(this,parentScope);
     };
     function nextBtn(e) {
-        carousel.selectSlide(1);
-        console.log('next');
+        carousel.selectSlide(parentScope.carousel.index.next, "Next");
     };
     function prevBtn(e) {
-        console.log('previous');
+        carousel.selectSlide(parentScope.carousel.index.prev, "Prev");
     };
     return {
         restrict    : 'AC',
@@ -182,6 +195,10 @@ jsSlider.directive(
                 carousel = controllerInstance;
                 parentScope = carousel.getScope();
                 initControls();
+                parentScope.carousel.controls = {
+                    prev : prev,
+                    next : next
+                };
             }
     }
 }]);

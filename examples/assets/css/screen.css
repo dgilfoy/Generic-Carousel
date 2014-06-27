@@ -85,6 +85,30 @@ header.topbar {
   position: absolute;
 }
 /* line 43, ../sass/screen.scss */
+.carousel .slides .slide.slideinPrev {
+  display: inline;
+  animation-duration: 1s;
+  animation-name: "slideinPrev";
+  -webkit-animation-name: "slideinPrev";
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: "slideinPrev";
+  -moz-animation-duration: 1s;
+  overflow: hidden;
+  position: absolute;
+}
+/* line 49, ../sass/screen.scss */
+.carousel .slides .slide.slideoutPrev {
+  display: inline;
+  animation-duration: 1s;
+  animation-name: "slideoutPrev";
+  -webkit-animation-name: "slideoutPrev";
+  -webkit-animation-duration: 1s;
+  -moz-animation-name: "slideoutPrev";
+  -moz-animation-duration: 1s;
+  overflow: hidden;
+  position: absolute;
+}
+/* line 55, ../sass/screen.scss */
 .carousel .slides .slide.active {
   display: block;
   margin-bottom: 5px;
@@ -92,42 +116,151 @@ header.topbar {
   opacity: 100;
   width: 100%;
 }
-/* line 51, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 .carousel .controls {
   display: inline-block;
   float: left;
   width: 89.58333%;
   margin: 0 1.04167%;
 }
-/* line 53, ../sass/screen.scss */
+/* line 65, ../sass/screen.scss */
 .carousel .controls .next {
   float: right;
 }
-/* line 56, ../sass/screen.scss */
+/* line 68, ../sass/screen.scss */
 .carousel .controls .prev {
   float: left;
 }
 
-@-webkit-keyframes slideinNext {
-  /* line 63, ../sass/screen.scss */
+/** slide in from the Right **/
+@keyframes slideinNext {
+  /* line 76, ../sass/screen.scss */
   from {
-    margin-left: 100%;
+    transform: translateX(100%);
   }
 
-  /* line 64, ../sass/screen.scss */
+  /* line 77, ../sass/screen.scss */
   to {
-    margin-left: 0;
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slideinNext {
+  /* line 80, ../sass/screen.scss */
+  from {
+    -webkit-transform: translateX(100%);
+  }
+
+  /* line 81, ../sass/screen.scss */
+  to {
+    -webkit-transform: translateX(0);
+  }
+}
+
+@-moz-keyframes slideinNext {
+  /* line 84, ../sass/screen.scss */
+  from {
+    -moz-transform: translateX(100%);
+  }
+
+  /* line 85, ../sass/screen.scss */
+  to {
+    -moz-transform: translateX(0);
+  }
+}
+
+/** slide out to the Left **/
+@keyframes slideoutNext {
+  /* line 90, ../sass/screen.scss */
+  from {
+    transform: translateX(0);
+  }
+
+  /* line 91, ../sass/screen.scss */
+  to {
+    transform: translateX(-100%);
   }
 }
 
 @-webkit-keyframes slideoutNext {
-  /* line 67, ../sass/screen.scss */
+  /* line 94, ../sass/screen.scss */
   from {
-    margin-left: 0;
+    -webkit-transform: translateX(0);
   }
 
-  /* line 68, ../sass/screen.scss */
+  /* line 95, ../sass/screen.scss */
   to {
-    margin-left: -100%;
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@-moz-keyframes slideoutNext {
+  /* line 98, ../sass/screen.scss */
+  from {
+    -moz-transform: translateX(0);
+  }
+
+  /* line 99, ../sass/screen.scss */
+  to {
+    -moz-transform: translateX(-100%);
+  }
+}
+
+/** slide in from the Left **/
+@keyframes slideinPrev {
+  /* line 104, ../sass/screen.scss */
+  from {
+    transform: translateX(-100%);
+  }
+
+  /* line 105, ../sass/screen.scss */
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes slideinPrev {
+  /* line 108, ../sass/screen.scss */
+  from {
+    -webkit-transform: translateX(-100%);
+  }
+
+  /* line 109, ../sass/screen.scss */
+  to {
+    -webkit-transform: translateX(0);
+  }
+}
+
+@-moz-keyframes slideinPrev {
+  /* line 112, ../sass/screen.scss */
+  from {
+    -moz-transform: translateX(-100%);
+  }
+
+  /* line 113, ../sass/screen.scss */
+  to {
+    -moz-transform: translateX(100%);
+  }
+}
+
+/** slide out to the Right **/
+@keyframes slideoutPrev {
+  /* line 117, ../sass/screen.scss */
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes slideoutPrev {
+  /* line 120, ../sass/screen.scss */
+  to {
+    -webkit-transform: translateX(100%);
+  }
+}
+
+@-moz-keyframes slideoutPrev {
+  /* line 123, ../sass/screen.scss */
+  to {
+    -moz-transform: translateX(100%);
   }
 }

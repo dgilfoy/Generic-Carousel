@@ -40,6 +40,18 @@ header.topbar{
 			overflow:hidden;
 			position:absolute;
 		}
+		.slide.slideinPrev{
+			display:inline;
+			@include slideAnimation("slideinPrev", 1s);
+			overflow:hidden;
+			position:absolute;
+		}
+		.slide.slideoutPrev{
+			display:inline;
+			@include slideAnimation("slideoutPrev", 1s);
+			overflow:hidden;
+			position:absolute;
+		}
 		.slide.active{
 			display:block;
 			margin-bottom: 5px;
@@ -59,11 +71,54 @@ header.topbar{
 	}
 }
 
+/** slide in from the Right **/
+@keyframes slideinNext{
+	from { transform:translateX(100%); }
+	to { transform:translateX(0); }	
+}
 @-webkit-keyframes slideinNext{
-	from { margin-left: 100%; }
-	to { margin-left: 0; }
+	from { -webkit-transform:translateX(100%); }
+	to { -webkit-transform:translateX(0); }	
+}
+@-moz-keyframes slideinNext{
+	from { -moz-transform:translateX(100%); }
+	to { -moz-transform:translateX(0); }	
+}
+
+/** slide out to the Left **/
+@keyframes slideoutNext{
+	from { transform : translateX(0); }
+	to { transform : translateX(-100%); }	
 }
 @-webkit-keyframes slideoutNext{
-	from { margin-left: 0; }
-	to { margin-left: -100%; }
+	from { -webkit-transform : translateX(0); }
+	to { -webkit-transform : translateX(-100%); }	
+}
+@-moz-keyframes slideoutNext{
+	from { -moz-transform : translateX(0); }
+	to { -moz-transform : translateX(-100%); }	
+}
+
+/** slide in from the Left **/
+@keyframes slideinPrev{
+	from { transform: translateX(-100%); }
+	to { transform : translateX(100%); }	
+}
+@-webkit-keyframes slideinPrev{
+	from { -webkit-transform: translateX(-100%); }
+	to { -webkit-transform : translateX(0); }	
+}
+@-moz-keyframes slideinPrev{
+	from { -moz-transform: translateX(-100%); }
+	to { -moz-transform : translateX(100%); }	
+}
+/** slide out to the Right **/
+@keyframes slideoutPrev{
+	to { transform : translateX(100%); }		
+}
+@-webkit-keyframes slideoutPrev{
+	to { -webkit-transform : translateX(100%); }		
+}
+@-moz-keyframes slideoutPrev{
+	to { -moz-transform : translateX(100%); }		
 }
