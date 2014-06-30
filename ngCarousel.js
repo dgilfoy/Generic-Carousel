@@ -6,7 +6,7 @@ jsSlider.directive(
     'ngCarousel', 
     [ '$document', '$animate', '$interval',
     function ($document, $animate, $interval) {
-        var defaults = {
+        var defaults = { // defaults for the carousel 
             "autoplay"      : false,
             "sourceUrl"     : false,
             "frameClass"    : "slide",
@@ -63,7 +63,6 @@ jsSlider.directive(
                     });
                     
                 };
-
                 this.selectSlide = function (target, direction) {
                     var current = $scope.carousel.index.current,
                       slides = $scope.carousel.slides;
@@ -176,5 +175,28 @@ jsSlider.directive(
                     next : next
                 };
             }
+    }
+}])
+.directive('thumbs', ['$document', function ($document) {
+    return {
+        restrict : 'AC',
+        scope : {},
+        require : '^ngCarousel',
+        template : '<span ng-repeat="thumb in thumbs"><button>{{thumb.itr}}</button></span>',
+        replace : false,
+        compile : function () {
+            return {
+                pre : function (tScope, tElem, tAttrs, controllerInstance) {
+                    var parentScope = controllerInstance.getScope();
+                    tScope.thumbs = {};
+                    angular.forEach( parentScope.carousel.slides, function (value,index) {
+                        tScope.thumbs[index] = {
+                            itr : index
+                        }
+                    });
+                    console.log(parentScope.carousel.slides );  
+                }
+            }
+        }
     }
 }]);
