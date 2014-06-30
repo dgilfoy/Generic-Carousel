@@ -37,14 +37,14 @@ var jsSlider = angular.module('jsSlider', []);
 
 jsSlider.directive(
     'ngCarousel', 
-    [ '$document', '$animate', 
-    function ($document, $animate) {
+    [ '$document', '$animate', '$interval',
+    function ($document, $animate, $interval) {
         var defaults = {
             "autoplay"      : false,
             "sourceUrl"     : false,
             "frameClass"    : "slide",
             "frameEle"      : "div",
-            "delay"         : 4000, // 4 seconds
+            "delay"         : 5000, // 4 seconds
             "thumbs"        : {
                 "show"      : false,
                 "container" : "thumbsWrapper",
@@ -74,7 +74,7 @@ jsSlider.directive(
                             callback.apply();
                         });
                     });
-                }
+                };
                 this.animate = function (current, target, direction) {
                     var slides = $scope.carousel.slides,
                       currentSlide = angular.element(slides[current]),
@@ -115,6 +115,9 @@ jsSlider.directive(
                       current + 1 : 0;
                     $scope.carousel.index.prev = ( ( current - 1 ) < 0 ) ?
                       ($scope.carousel.slides.length-1) : (current-1);
+                };
+                this.autoPlay = function (callback) {
+                    $scope.carousel.interval = $interval( callback.bind(this), $scope.carousel.config.delay);
                 };
             },
             compile : function (tScope, tElem, tAttrs) {
@@ -160,6 +163,11 @@ jsSlider.directive(
                 parentScope = controllerInstance.getScope();
                 initSlider();
                 parentScope.carousel.slides = slides;
+                if ( config.autoplay ) {
+                    controllerInstance.autoPlay( function () {
+                        controllerInstance.selectSlide( parentScope.carousel.index.next, "Next");
+                    });    
+                }
             }
     }
 }])
