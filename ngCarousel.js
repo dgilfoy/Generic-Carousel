@@ -178,23 +178,24 @@ jsSlider.directive(
     }
 }])
 .directive('thumbs', ['$document', function ($document) {
+    var parentScope,carousel;
+    function testBob(itr) {
+        carousel.selectSlide(itr,"Next");
+    };
     return {
         restrict : 'AC',
         scope : {},
         require : '^ngCarousel',
-        template : '<span ng-repeat="thumb in thumbs"><button>{{thumb.itr}}</button></span>',
-        replace : false,
         compile : function () {
             return {
                 pre : function (tScope, tElem, tAttrs, controllerInstance) {
-                    var parentScope = controllerInstance.getScope();
-                    tScope.thumbs = {};
+                    carousel = controllerInstance;
+                    parentScope = carousel.getScope();
                     angular.forEach( parentScope.carousel.slides, function (value,index) {
-                        tScope.thumbs[index] = {
-                            itr : index
-                        }
+                        var thumbLink = angular.element('<button>'+index+'</button>');
+                        thumbLink.on('click', testBob.bind(this,index));
+                        tElem.append(thumbLink);
                     });
-                    console.log(parentScope.carousel.slides );  
                 }
             }
         }
