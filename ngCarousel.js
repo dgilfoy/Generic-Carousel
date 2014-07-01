@@ -112,7 +112,6 @@ jsSlider.directive(
     // initialize the slider (set wrapper and slide elements, show the first slide)
     function initSlider() {
         config = parentScope.carousel.config;
-
         var container = parentScope.carousel.container,
           slidesClasses = container[0].className.split(' ');
 
@@ -149,6 +148,8 @@ jsSlider.directive(
 
         controls = ( slidesClasses[0] === 'controls' ) ? 
             container[0].children : container[1].children;
+        // need a better way to do this.  When thumbnails are before the prev element, or 
+        // between prev and next, it throws this off.
         prev = ( controls[0].className.match(/\bprev\b/) ) ? controls[0] : controls[1];
         next = ( controls[1].className.match(/\bnext\b/) ) ? controls[1] : controls[0];
         
@@ -179,8 +180,10 @@ jsSlider.directive(
 }])
 .directive('thumbs', ['$document', function ($document) {
     var parentScope,carousel;
-    function testBob(itr) {
-        carousel.selectSlide(itr,"Next");
+    function goToSlide(itr) {
+        if( itr !== parentScope.carousel.index.current ){
+            carousel.selectSlide(itr,"Next");
+        }
     };
     return {
         restrict : 'AC',
@@ -189,11 +192,15 @@ jsSlider.directive(
         compile : function () {
             return {
                 pre : function (tScope, tElem, tAttrs, controllerInstance) {
+                    // for some reason this has caused the previous button to go next, and the next button to '
+                    // no longer function.  Let's look into this.
                     carousel = controllerInstance;
                     parentScope = carousel.getScope();
+
+                    tElem.addClass('col-' + parentScope.carousel.slides.length);
                     angular.forEach( parentScope.carousel.slides, function (value,index) {
-                        var thumbLink = angular.element('<button>'+index+'</button>');
-                        thumbLink.on('click', testBob.bind(this,index));
+                        var thumbLink = angular.element('<li><span>[ &#9679; ]</span></li>');
+                        thumbLink.on('click', goToSlide.bind(this,index));
                         tElem.append(thumbLink);
                     });
                 }

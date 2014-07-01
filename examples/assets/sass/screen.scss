@@ -16,13 +16,14 @@ header.topbar{
 	display:none;
 	@include column(6);
 	@include push(3);
+	position:relative;
+	overflow: hidden;
 	.slides{
 		margin-bottom: 10px;
 		@include column(11);
 		height: auto;
 		min-height: 185px;
 		overflow:hidden;
-		position:relative;
 		.slide{
 			display:none;
 			padding: 10px;
@@ -62,12 +63,36 @@ header.topbar{
 	}
 	.controls{
 		@include column(11);
+		.ctr{
+			opacity: 0.3;
+		}
+		.ctr:hover{
+			opacity:1;
+		}
 		.next{
 			float:right;
 		}
 		.prev{
 			float:left;
 		}
+		position:absolute;
+		top: 80px;
+		left: 0;
+		margin:0;
+	}
+	.thumbs{
+		display: block;
+		width: 60%;
+		padding: 5px;
+		margin: 5px auto;
+		li span{
+			cursor: pointer;
+		}	
+	}
+	.col-3 li{
+		width: 32%;
+		float: left;
+		text-align: center;	
 	}
 }
 

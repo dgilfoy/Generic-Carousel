@@ -41,8 +41,10 @@ header.topbar {
   width: 47.91667%;
   margin: 0 1.04167%;
   margin-left: 26.04167%;
+  position: relative;
+  overflow: hidden;
 }
-/* line 19, ../sass/screen.scss */
+/* line 21, ../sass/screen.scss */
 .carousel .slides {
   margin-bottom: 10px;
   display: inline-block;
@@ -52,15 +54,14 @@ header.topbar {
   height: auto;
   min-height: 185px;
   overflow: hidden;
-  position: relative;
 }
-/* line 26, ../sass/screen.scss */
+/* line 27, ../sass/screen.scss */
 .carousel .slides .slide {
   display: none;
   padding: 10px;
   position: absolute;
 }
-/* line 31, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
 .carousel .slides .slide.slideinNext {
   display: inline;
   animation-duration: 1s;
@@ -72,7 +73,7 @@ header.topbar {
   overflow: hidden;
   position: absolute;
 }
-/* line 37, ../sass/screen.scss */
+/* line 38, ../sass/screen.scss */
 .carousel .slides .slide.slideoutNext {
   display: inline;
   animation-duration: 1s;
@@ -84,7 +85,7 @@ header.topbar {
   overflow: hidden;
   position: absolute;
 }
-/* line 43, ../sass/screen.scss */
+/* line 44, ../sass/screen.scss */
 .carousel .slides .slide.slideinPrev {
   display: inline;
   animation-duration: 1s;
@@ -96,7 +97,7 @@ header.topbar {
   overflow: hidden;
   position: absolute;
 }
-/* line 49, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .carousel .slides .slide.slideoutPrev {
   display: inline;
   animation-duration: 1s;
@@ -108,7 +109,7 @@ header.topbar {
   overflow: hidden;
   position: absolute;
 }
-/* line 55, ../sass/screen.scss */
+/* line 56, ../sass/screen.scss */
 .carousel .slides .slide.active {
   display: block;
   margin-bottom: 5px;
@@ -116,54 +117,83 @@ header.topbar {
   opacity: 100;
   width: 100%;
 }
-/* line 63, ../sass/screen.scss */
+/* line 64, ../sass/screen.scss */
 .carousel .controls {
   display: inline-block;
   float: left;
   width: 89.58333%;
   margin: 0 1.04167%;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  margin: 0;
 }
-/* line 65, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
+.carousel .controls .ctr {
+  opacity: 0.3;
+}
+/* line 69, ../sass/screen.scss */
+.carousel .controls .ctr:hover {
+  opacity: 1;
+}
+/* line 72, ../sass/screen.scss */
 .carousel .controls .next {
   float: right;
 }
-/* line 68, ../sass/screen.scss */
+/* line 75, ../sass/screen.scss */
 .carousel .controls .prev {
   float: left;
+}
+/* line 83, ../sass/screen.scss */
+.carousel .thumbs {
+  display: block;
+  width: 60%;
+  padding: 5px;
+  margin: 5px auto;
+}
+/* line 88, ../sass/screen.scss */
+.carousel .thumbs li span {
+  cursor: pointer;
+}
+/* line 92, ../sass/screen.scss */
+.carousel .col-3 li {
+  width: 32%;
+  float: left;
+  text-align: center;
 }
 
 /** slide in from the Right **/
 @keyframes slideinNext {
-  /* line 76, ../sass/screen.scss */
+  /* line 101, ../sass/screen.scss */
   from {
     transform: translateX(100%);
   }
 
-  /* line 77, ../sass/screen.scss */
+  /* line 102, ../sass/screen.scss */
   to {
     transform: translateX(0);
   }
 }
 
 @-webkit-keyframes slideinNext {
-  /* line 80, ../sass/screen.scss */
+  /* line 105, ../sass/screen.scss */
   from {
     -webkit-transform: translateX(100%);
   }
 
-  /* line 81, ../sass/screen.scss */
+  /* line 106, ../sass/screen.scss */
   to {
     -webkit-transform: translateX(0);
   }
 }
 
 @-moz-keyframes slideinNext {
-  /* line 84, ../sass/screen.scss */
+  /* line 109, ../sass/screen.scss */
   from {
     -moz-transform: translateX(100%);
   }
 
-  /* line 85, ../sass/screen.scss */
+  /* line 110, ../sass/screen.scss */
   to {
     -moz-transform: translateX(0);
   }
@@ -171,36 +201,36 @@ header.topbar {
 
 /** slide out to the Left **/
 @keyframes slideoutNext {
-  /* line 90, ../sass/screen.scss */
+  /* line 115, ../sass/screen.scss */
   from {
     transform: translateX(0);
   }
 
-  /* line 91, ../sass/screen.scss */
+  /* line 116, ../sass/screen.scss */
   to {
     transform: translateX(-100%);
   }
 }
 
 @-webkit-keyframes slideoutNext {
-  /* line 94, ../sass/screen.scss */
+  /* line 119, ../sass/screen.scss */
   from {
     -webkit-transform: translateX(0);
   }
 
-  /* line 95, ../sass/screen.scss */
+  /* line 120, ../sass/screen.scss */
   to {
     -webkit-transform: translateX(-100%);
   }
 }
 
 @-moz-keyframes slideoutNext {
-  /* line 98, ../sass/screen.scss */
+  /* line 123, ../sass/screen.scss */
   from {
     -moz-transform: translateX(0);
   }
 
-  /* line 99, ../sass/screen.scss */
+  /* line 124, ../sass/screen.scss */
   to {
     -moz-transform: translateX(-100%);
   }
@@ -208,36 +238,36 @@ header.topbar {
 
 /** slide in from the Left **/
 @keyframes slideinPrev {
-  /* line 104, ../sass/screen.scss */
+  /* line 129, ../sass/screen.scss */
   from {
     transform: translateX(-100%);
   }
 
-  /* line 105, ../sass/screen.scss */
+  /* line 130, ../sass/screen.scss */
   to {
     transform: translateX(100%);
   }
 }
 
 @-webkit-keyframes slideinPrev {
-  /* line 108, ../sass/screen.scss */
+  /* line 133, ../sass/screen.scss */
   from {
     -webkit-transform: translateX(-100%);
   }
 
-  /* line 109, ../sass/screen.scss */
+  /* line 134, ../sass/screen.scss */
   to {
     -webkit-transform: translateX(0);
   }
 }
 
 @-moz-keyframes slideinPrev {
-  /* line 112, ../sass/screen.scss */
+  /* line 137, ../sass/screen.scss */
   from {
     -moz-transform: translateX(-100%);
   }
 
-  /* line 113, ../sass/screen.scss */
+  /* line 138, ../sass/screen.scss */
   to {
     -moz-transform: translateX(100%);
   }
@@ -245,21 +275,21 @@ header.topbar {
 
 /** slide out to the Right **/
 @keyframes slideoutPrev {
-  /* line 117, ../sass/screen.scss */
+  /* line 142, ../sass/screen.scss */
   to {
     transform: translateX(100%);
   }
 }
 
 @-webkit-keyframes slideoutPrev {
-  /* line 120, ../sass/screen.scss */
+  /* line 145, ../sass/screen.scss */
   to {
     -webkit-transform: translateX(100%);
   }
 }
 
 @-moz-keyframes slideoutPrev {
-  /* line 123, ../sass/screen.scss */
+  /* line 148, ../sass/screen.scss */
   to {
     -moz-transform: translateX(100%);
   }
